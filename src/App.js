@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useWeb3React } from '@web3-react/core'
 
-function App() {
+import { CoinbaseWallet, MM, WalletConnect } from "./wallets";
+
+const App = () => {
+
+  const { activate, deactivate, chainId, account, active } = useWeb3React();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={() => { activate(CoinbaseWallet) }}>Coinbase Wallet</button>
+      <button onClick={() => { activate(WalletConnect) }}>Wallet Connect</button>
+      <button onClick={() => { activate(MM) }}>Metamask</button>
+      <button onClick={deactivate}>Disconnect</button>
+      <div>Connection Status: {active ? "On" : "Off"}</div>
+      <div>Account: {account}</div>
+      <div>Network ID: {chainId}</div>
+    </>
   );
 }
 
